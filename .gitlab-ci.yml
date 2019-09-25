@@ -1,0 +1,26 @@
+stages:
+- build
+- testing
+
+docker_build:
+  stage: build
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - make build
+    - make push
+  only:
+    - master
+    - tags
+  tags:
+    - bash_docker
+
+app_tests:
+  stage: testing
+  image: docker-registry.sabay.com/payment-network/sdk/sdk.go-cashier.ssn.digital/build:master
+  script:
+    - CGO_ENABLED=0 go test -v -cover git.sabay.com/payment-network/sdk/sdk.go-cashier.ssn.digital/cashier
+  only:
+    - master
+  tags:
+    - docker
