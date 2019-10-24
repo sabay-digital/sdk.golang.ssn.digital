@@ -20,15 +20,16 @@ type paResponse struct {
 	Public_key      string    `json:"public_key"`
 	Asset_code      string    `json:"asset_code"`
 	Payment_type    string    `json:"payment_type"`
+	Service_name    string    `json:"service_name"`
 	Encrypted       string    `json:"encrypted"`
 	Details         paDetails `json:"details"`
 }
 
 type paDetails struct {
-	Service_name string    `json:"service_name"`
 	Payment_info string    `json:"payment_info"`
 	Memo         string    `json:"memo"`
 	Payment      paPayment `json:"payment"`
+	Service_fee  paPayment `json:"service_fee"`
 }
 
 type paPayment struct {
