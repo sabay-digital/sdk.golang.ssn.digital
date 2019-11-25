@@ -1,3 +1,6 @@
+Version 1.1.0
+- Start adding generalised SSN structs: Accounts, Operations, Transactions and Payments
+
 Version 1.0.0
 - Initial commit of reusable cashier functions
 - Pipeline for testing
