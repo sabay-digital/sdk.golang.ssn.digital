@@ -20,6 +20,7 @@ type Transaction struct {
 	Result_meta_xdr         string                     `json:"result_meta_xdr,omitempty"`
 	Fee_meta_xdr            string                     `json:"fee_meta_xdr,omitempty"`
 	Memo_type               string                     `json:"memo_type,omitempty"`
+	Memo                    string                     `json:"memo,omitempty"`
 	Signatures              []string                   `json:"signatures,omitempty"`
 	Type                    string                     `json:"type,omitempty"`
 	Title                   string                     `json:"title,omitempty"`

@@ -6,7 +6,7 @@ type Payment struct {
 	Paging_token     string `json:"paging_token,omitempty"`
 	Source_account   string `json:"source_account,omitempty"`
 	Type             string `json:"type,omitempty"`
-	Type_i           int    `json:"type_i,omitempty"`
+	Type_i           int    `json:"type_i"`
 	Created_at       string `json:"created_at,omitempty"`
 	Transaction_hash string `json:"transaction_hash,omitempty"`
 	Starting_balance string `json:"starting_balance,omitempty"`
@@ -18,4 +18,5 @@ type Payment struct {
 	From             string `json:"from,omitempty"`
 	To               string `json:"to,omitempty"`
 	Amount           string `json:"amount,omitempty"`
+	Memo             string `json:"memo,omitempty"`
 }
