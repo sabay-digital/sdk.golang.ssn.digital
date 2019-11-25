@@ -7,7 +7,7 @@ VARS_OLD := $(.VARIABLES)
 # gitlab CI vars
 CI_REGISTRY          ?= docker-registry.sabay.com
 CI_PROJECT_NAMESPACE ?= payment-network/sdk
-CI_PROJECT_NAME      ?= sdk.go-cashier.ssn.digital
+CI_PROJECT_NAME      ?= sdk.golang.ssn.digital
 CI_COMMIT_REF_NAME   ?= master
 CI_ENVIRONMENT_NAME  ?= master
 
