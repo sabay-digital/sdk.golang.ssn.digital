@@ -1,3 +1,6 @@
+Version 1.1.1
+- Add SSN Ledger struct
+
 Version 1.1.0
 - Start adding generalised SSN structs: Accounts, Operations, Transactions and Payments
 
