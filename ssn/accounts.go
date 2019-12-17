@@ -7,9 +7,9 @@ type Account struct {
 	Id                   string                     `json:"id,omitempty"`
 	Account_ID           string                     `json:"account_id,omitempty"`
 	Sequence             string                     `json:"sequence,omitempty"`
-	Subentry_count       int                        `json:"subentry_count,omitempty"`
+	Subentry_count       int                        `json:"subentry_count"`
 	Home_domain          string                     `json:"home_domain,omitempty"`
-	Last_modified_ledger int                        `json:"last_modified_ledger,omitempty"`
+	Last_modified_ledger int                        `json:"last_modified_ledger"`
 	Thresholds           *thresholds                `json:"thresholds,omitempty"`
 	Flags                *flags                     `json:"flags,omitempty"`
 	Balances             []balances                 `json:"balances,omitempty"`
