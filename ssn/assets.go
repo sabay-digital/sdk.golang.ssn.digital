@@ -10,7 +10,7 @@ type Asset struct {
 	Paging_token string   `json:"paging_token"`
 	Amount       string   `json:"amount"`
 	Num_accounts int      `json:"num_accounts"`
-	Flags        *flags   `json:"flags"`
+	Flags        flags    `json:"flags"`
 }
 
 // tomlLink describes the JSON structure related to an embedded TOML link
@@ -27,7 +27,7 @@ type Issuer struct {
 	Asset_issuer string    `json:"asset_issuer,omitempty"`
 	Asset_code   string    `json:"asset_code,omitempty"`
 	Asset_type   string    `json:"asset_type,omitempty"`
-	Flags        *flags    `json:"flags,omitempty"`
+	Flags        flags     `json:"flags,omitempty"`
 	Amount       string    `json:"amount,omitempty"`
 	Num_accounts int       `json:"num_accounts,omitempty"`
 	Holders      []Holders `json:"holders,omitempty"`
