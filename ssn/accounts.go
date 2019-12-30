@@ -42,8 +42,8 @@ type balances struct {
 	Buying_liabilities       string `json:"buying_liabilities,omitempty"`
 	Selling_liabilities      string `json:"selling_liabilities,omitempty"`
 	Limit                    string `json:"limit,omitempty"`
-	Last_modified_ledger     int    `json:"last_modified_ledger,omitempty"`
-	Is_authorized            bool   `json:"is_authorized,omitempty"`
+	Last_modified_ledger     int    `json:"last_modified_ledger"`
+	Is_authorized            bool   `json:"is_authorized"`
 	Asset_type               string `json:"asset_type,omitempty"`
 	Asset_code               string `json:"asset_code,omitempty"`
 	Asset_issuer             string `json:"asset_issuer,omitempty"`
@@ -53,7 +53,7 @@ type balances struct {
 
 // signers describes the JSON structure of an individual signer on an account
 type signers struct {
-	Weight int    `json:"weight,omitempty"`
+	Weight int    `json:"weight"`
 	Key    string `json:"key,omitempty"`
 	Type   string `json:"type,omitempty"`
 }
