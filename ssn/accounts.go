@@ -38,17 +38,18 @@ type flags struct {
 
 // balances describes the JSON structure of an individual balance on an account
 type balances struct {
-	Balance                  string `json:"balance,omitempty"`
-	Buying_liabilities       string `json:"buying_liabilities,omitempty"`
-	Selling_liabilities      string `json:"selling_liabilities,omitempty"`
-	Limit                    string `json:"limit,omitempty"`
-	Last_modified_ledger     int    `json:"last_modified_ledger"`
-	Is_authorized            bool   `json:"is_authorized"`
-	Asset_type               string `json:"asset_type,omitempty"`
-	Asset_code               string `json:"asset_code,omitempty"`
-	Asset_issuer             string `json:"asset_issuer,omitempty"`
-	Asset_issuer_reg_name    string `json:"asset_issuer_reg_name,omitempty"`
-	Asset_issuer_home_domain string `json:"asset_issuer_home_domain,omitempty"`
+	Balance                   string `json:"balance,omitempty"`
+	Buying_liabilities        string `json:"buying_liabilities,omitempty"`
+	Selling_liabilities       string `json:"selling_liabilities,omitempty"`
+	Limit                     string `json:"limit,omitempty"`
+	Last_modified_ledger      int    `json:"last_modified_ledger"`
+	Is_authorized             bool   `json:"is_authorized"`
+	Asset_type                string `json:"asset_type,omitempty"`
+	Asset_code                string `json:"asset_code,omitempty"`
+	Asset_issuer              string `json:"asset_issuer,omitempty"`
+	Asset_issuer_service_name string `json:"asset_issuer_service_name,omitempty"`
+	Asset_issuer_reg_name     string `json:"asset_issuer_reg_name,omitempty"`
+	Asset_issuer_home_domain  string `json:"asset_issuer_home_domain,omitempty"`
 }
 
 // signers describes the JSON structure of an individual signer on an account
