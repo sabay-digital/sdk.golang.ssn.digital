@@ -14,3 +14,14 @@ func Log(err error, cause string) bool {
 	}
 	return false
 }
+
+// ParseErrorPayload returns a RedirectPayload object that can be used to display a template error
+func ParseErrorPayload(cause, detail, host string) RedirectPayload {
+	return RedirectPayload{
+		RedirectURL: "https://" + host + "/v1/error",
+		Payload: []PayloadItem{
+			{Key: "cause", Value: cause},
+			{Key: "detail", Value: detail},
+		},
+	}
+}

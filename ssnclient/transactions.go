@@ -1,4 +1,4 @@
-package cashier
+package ssnclient
 
 import (
 	"bytes"
@@ -12,54 +12,14 @@ import (
 	"github.com/stellar/go/txnbuild"
 )
 
-type buildResponse struct {
-	Envelope_xdr string `json:"envelope_xdr"`
-}
+/*
+*
+* Sign and Submit Transactions
+*
+ */
 
-type signRequest struct {
-	Xdr_string string `json:"xdr_string"`
-}
-
-type submitResponse struct {
-	Hash string `json:"hash"`
-}
-
-// BuildTxn sends transaction information to the SSN API to build an XDR envelope
-func BuildTxn(from, to, amount, assetCode, assetIssuer, memo, api string) string {
-	tx := url.Values{}
-	tx.Set("from", from)
-	tx.Set("to", to)
-	tx.Set("amount", amount)
-	tx.Set("asset_code", assetCode)
-	tx.Set("asset_issuer", assetIssuer)
-	tx.Set("memo", memo)
-
-	req, err := http.NewRequest("POST", api+"/create/transaction", strings.NewReader(tx.Encode()))
-	if err != nil {
-		fmt.Println(error.Error(err))
-	}
-	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
-	res, err := http.DefaultClient.Do(req)
-	if err != nil {
-		fmt.Println(error.Error(err))
-	}
-
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		fmt.Println(error.Error(err))
-	}
-
-	apiResp := buildResponse{}
-	err = json.Unmarshal(body, &apiResp)
-	if err != nil {
-		fmt.Println(error.Error(err))
-	}
-	return apiResp.Envelope_xdr
-}
-
-// SignLocal takes a base64 encoded XDR envelope and signs it with the provided secret key
-func SignLocal(xdr, signer, networkPassphrase string) string {
+// SignTxn takes a base64 encoded XDR envelope and signs it with the provided secret key
+func SignTxn(xdr, signer, networkPassphrase string) string {
 	// Deserialise the provided transaction
 	tx, err := txnbuild.TransactionFromXDR(xdr)
 	if err != nil {
@@ -84,8 +44,12 @@ func SignLocal(xdr, signer, networkPassphrase string) string {
 	return b64
 }
 
-// SignService takes a base64 encoded XDR envelope and sends it to the specified sign service
-func SignService(xdr, signer string) string {
+type signRequest struct {
+	Xdr_string string `json:"xdr_string"`
+}
+
+// SignTxnService takes a base64 encoded XDR envelope and sends it to the specified sign service API
+func SignTxnService(xdr, signer string) string {
 	// Prepare the request body
 	sig := signRequest{
 		Xdr_string: xdr,
@@ -122,6 +86,10 @@ func SignService(xdr, signer string) string {
 	}
 
 	return sig.Xdr_string
+}
+
+type submitResponse struct {
+	Hash string `json:"hash"`
 }
 
 // SubmitTxn takes a base64 encoded XDR envelope and submits it to the network via provided API

@@ -5,4 +5,4 @@
 
 Go repo that contains generic functions for use in SSN projects
 
-`git clone https://go-cashier:rZMu58nyjtyhNsYVLdq_@git.sabay.com/payment-network/sdk/sdk.golang.ssn.digital.git`
+`git clone https://go-sdk:-7NmTp72mLeN_nPhzxVe@git.sabay.com/payment-network/sdk/sdk.golang.ssn.digital.git`

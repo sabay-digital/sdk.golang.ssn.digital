@@ -1,4 +1,4 @@
-package cashier
+package ssnclient
 
 import (
 	"encoding/base64"
@@ -14,6 +14,13 @@ import (
 	"github.com/agl/ed25519/extra25519"
 	"golang.org/x/crypto/nacl/box"
 )
+
+/*
+*
+* Resolve Payment Addresses
+*
+*/
+
 
 type paResponse struct {
 	Network_address string    `json:"network_address"`

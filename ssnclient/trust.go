@@ -1,4 +1,4 @@
-package cashier
+package ssnclient
 
 import (
 	"fmt"
@@ -6,6 +6,12 @@ import (
 	"net/url"
 	"strings"
 )
+
+/*
+*
+* Add, Approve, Remove and Verify Trustlines
+*
+ */
 
 // VerifyTrust checks whether the provided asset and assetIssuer is trusted by destination
 func VerifyTrust(destination, asset, assetIssuer, api string) bool {
