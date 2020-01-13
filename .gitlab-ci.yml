@@ -19,7 +19,7 @@ app_tests:
   stage: testing
   image: docker-registry.sabay.com/payment-network/sdk/sdk.golang.ssn.digital/build:master
   script:
-    - CGO_ENABLED=0 go test -v -cover git.sabay.com/payment-network/sdk/sdk.golang.ssn.digital/cashier
+    - CGO_ENABLED=0 go test -v -cover git.sabay.com/payment-network/sdk/sdk.golang.ssn.digital/ssnclient
   only:
     - master
   tags:
