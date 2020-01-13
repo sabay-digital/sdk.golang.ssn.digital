@@ -38,6 +38,9 @@ type Issuer struct {
 
 // Holders describes the JSON structure related to an individual asset holder
 type Holders struct {
-	Account_id string   `json:"account_id,omitempty"`
-	Balance    balances `json:"balance,omitempty"`
+	Account_id                string   `json:"account_id,omitempty"`
+	Balance                   balances `json:"balance,omitempty"`
+	Asset_holder_service_name string   `json:"asset_holder_service_name,omitempty"`
+	Asset_holder_reg_name     string   `json:"asset_holder_reg_name,omitempty"`
+	Asset_holder_home_domain  string   `json:"asset_holder_home_domain,omitempty"`
 }
