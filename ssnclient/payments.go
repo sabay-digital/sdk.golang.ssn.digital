@@ -15,6 +15,15 @@ import (
 *
  */
 
+// PreAuthRequest describes the JSON payload related to Pre Authorized payments
+type PreAuthRequest struct {
+	Message         string `json:"message"`
+	Signature       string `json:"signature"`
+	Public_key      string `json:"public_key"`
+	Service_user_id string `json:"service_user_id"`
+}
+
+// CreatePayment response
 type buildResponse struct {
 	Envelope_xdr string `json:"envelope_xdr"`
 }
