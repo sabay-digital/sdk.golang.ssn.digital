@@ -1,14 +1,13 @@
 package ssnclient
 
 import (
+	"bytes"
 	"encoding/base64"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
-	"net/url"
-	"strings"
 
+	"git.sabay.com/payment-network/sdk/sdk.golang.ssn.digital/ssn"
 	"github.com/stellar/go/strkey"
 
 	"github.com/agl/ed25519/extra25519"
@@ -19,64 +18,88 @@ import (
 *
 * Resolve Payment Addresses
 *
-*/
+ */
 
-
-type paResponse struct {
-	Network_address string    `json:"network_address"`
-	Public_key      string    `json:"public_key"`
-	Asset_code      string    `json:"asset_code"`
-	Payment_type    string    `json:"payment_type"`
-	Service_name    string    `json:"service_name"`
-	Encrypted       string    `json:"encrypted"`
-	Details         paDetails `json:"details"`
+// ResolverRequest describes the JSON structure for making a request to the payment address resolver API
+type ResolverRequest struct {
+	Asset_issuer    string `json:"asset_issuer"`
+	Public_key      string `json:"public_key"`
+	Payment_address string `json:"payment_address"`
 }
 
-type paDetails struct {
-	Payment_info string    `json:"payment_info"`
-	Memo         string    `json:"memo"`
-	Payment      paPayment `json:"payment"`
-	Service_fee  paPayment `json:"service_fee"`
+// ResolverResponse describes the JSON structure for the response from the payment address resolver API
+type ResolverResponse struct {
+	Network_address string                   `json:"network_address,omitempty"`
+	Public_key      string                   `json:"public_key,omitempty"`
+	Asset_code      string                   `json:"asset_code,omitempty"`
+	Payment_type    string                   `json:"payment_type,omitempty"`
+	Service_name    string                   `json:"service_name,omitempty"`
+	Encrypted       string                   `json:"encrypted,omitempty"`
+	Details         *resolverResponseDetails `json:"details,omitempty"`
+	Status          int                      `json:"status,omitempty"`
+	Title           string                   `json:"title,omitempty"`
+	Signature       string                   `json:"signature,omitempty"`
 }
 
-type paPayment struct {
-	Amount     string `json:"amount"`
-	Asset_code string `json:"asset_code"`
+// resolverResponseDetails describes the JSON structure for the nested details part of the response from the payment address resolver API
+type resolverResponseDetails struct {
+	Payment_info                string                     `json:"payment_info,omitempty"`
+	Memo                        string                     `json:"memo,omitempty"`
+	Recurring_payment_frequency string                     `json:"recurring_payment_frequency,omitempty"`
+	Recurring_payment_interval  string                     `json:"recurring_payment_interval,omitempty"`
+	Recurring_payment_start     string                     `json:"recurring_payment_start,omitempty"`
+	Payment                     *resolverPaymentDetails    `json:"payment,omitempty"`
+	Service_fee                 *resolverServiceFeeDetails `json:"service_fee,omitempty"`
+}
+
+// resolverResponseDetails describes the JSON structure for the nested payment details part of the response from the payment address resolver API
+type resolverPaymentDetails struct {
+	Amount     string `json:"amount,omitempty"`
+	Asset_code string `json:"asset_code,omitempty"`
+}
+
+// resolverResponseDetails describes the JSON structure for the nested service fee details part of the response from the payment address resolver API
+type resolverServiceFeeDetails struct {
+	Amount     string `json:"amount,omitempty"`
+	Asset_code string `json:"asset_code,omitempty"`
 }
 
 // ResolvePA sends a payment address to the PA service for resolving.
-// It also sends the cashiers asset issuing public key and local signing public key to decrypt any response
-func ResolvePA(assetIssuer, publicKey, paymentAddress, resolverURL, decryptionKey string) (paResponse, bool) {
-	// Prepare URL encoded values
-	paValues := url.Values{}
-	paValues.Set("asset_issuer", assetIssuer)
-	paValues.Set("public_key", publicKey)
-	paValues.Set("payment_address", paymentAddress)
-	paBody := strings.NewReader(paValues.Encode())
-
-	// Send the request to the PA service and get the reponse
-	paReq, err := http.NewRequest("POST", resolverURL, paBody)
-	if err != nil {
-		fmt.Println(error.Error(err))
-		return paResponse{}, true
+// If the returned response is encrypted it will attempt to decrypt using the provided keys
+func ResolvePA(assetIssuer, publicKey, paymentAddress, resolverURL, decryptionKey string) (ResolverResponse, error) {
+	// Prepare JSON request
+	req := ResolverRequest{
+		Asset_issuer:    assetIssuer,
+		Public_key:      publicKey,
+		Payment_address: paymentAddress,
 	}
+	reqBody, err := json.Marshal(req)
+	if ssn.Log(err, "ResolvePA: Marshal request body") {
+		return ResolverResponse{Status: 500, Title: "Internal System Error"}, err
+	}
+
+	// Send the request to the API and get the reponse
+	paReq, err := http.NewRequest("POST", resolverURL, bytes.NewBuffer(reqBody))
+	if ssn.Log(err, "ResolvePA: Build HTTP request") {
+		return ResolverResponse{Status: 500, Title: "Internal System Error"}, err
+	}
+	paReq.Header.Add("Content-Type", "application/json")
+
 	paResp, err := http.DefaultClient.Do(paReq)
-	if err != nil {
-		fmt.Println(error.Error(err))
-		return paResponse{}, true
+	if ssn.Log(err, "ResolvePA: Send HTTP request") {
+		return ResolverResponse{Status: 500, Title: "Internal System Error"}, err
 	}
 
 	// Unmarshall the PA response
 	body, err := ioutil.ReadAll(paResp.Body)
-	if err != nil {
-		fmt.Println(error.Error(err))
-		return paResponse{}, true
+	if ssn.Log(err, "ResolvePA: Read response body") {
+		return ResolverResponse{Status: 500, Title: "Internal System Error"}, err
 	}
-	resp := paResponse{}
+
+	resp := ResolverResponse{}
 	err = json.Unmarshal(body, &resp)
-	if err != nil {
-		fmt.Println(error.Error(err))
-		return paResponse{}, true
+	if ssn.Log(err, "ResolvePA: Unmarshal response body") {
+		return ResolverResponse{Status: 500, Title: "Internal System Error"}, err
 	}
 
 	if resp.Encrypted != "" {
@@ -96,30 +119,26 @@ func ResolvePA(assetIssuer, publicKey, paymentAddress, resolverURL, decryptionKe
 
 		// Decrypt message
 		encrypted, err := base64.StdEncoding.DecodeString(resp.Encrypted)
-		if err != nil {
-			fmt.Println(error.Error(err))
-			return paResponse{}, true
+		if ssn.Log(err, "ResolvePA: Decode encrypted string") {
+			return ResolverResponse{Status: 500, Title: "Internal System Error"}, err
 		}
 		var decryptNonce [24]byte
 		copy(decryptNonce[:], encrypted[:24])
 		decrypted, ok := box.OpenAfterPrecomputation(nil, encrypted[24:], &decryptNonce, &sharedDecryptKey)
 		if !ok {
-			fmt.Println("Decryption failed")
-			return paResponse{}, true
+			return ResolverResponse{Status: 403, Title: "Decryption Failed"}, nil
 		}
 
 		// Unmarshal the decrypted response
 		err = json.Unmarshal(decrypted, &resp)
-		if err != nil {
-			fmt.Println("Decryption failed")
-			return paResponse{}, true
+		if ssn.Log(err, "ResolvePA: Unmarshal decrypted response") {
+			return ResolverResponse{Status: 500, Title: "Internal System Error"}, err
 		}
 	}
 
 	if resp.Network_address == "" {
-		fmt.Println("Decryption failed")
-		return paResponse{}, true
+		return ResolverResponse{Status: 400, Title: "Payment destination missing"}, nil
 	}
 
-	return resp, false
+	return resp, nil
 }
