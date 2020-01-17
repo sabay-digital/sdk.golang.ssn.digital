@@ -39,6 +39,8 @@ func VerifyTrust(destination, asset, assetIssuer, api string) (bool, error) {
 	if ssn.Log(err, "VerifyTrust: Build HTTP request") {
 		return false, err
 	}
+	vtReq.Header.Add("Content-Type", "application/json")
+
 	vtResp, err := http.DefaultClient.Do(vtReq)
 	if ssn.Log(err, "VerifyTrust: Send HTTP request") {
 		return false, err
