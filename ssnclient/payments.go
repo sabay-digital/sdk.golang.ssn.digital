@@ -1,12 +1,12 @@
 package ssnclient
 
 import (
+	"bytes"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
-	"net/url"
-	"strings"
+
+	"git.sabay.com/payment-network/sdk/sdk.golang.ssn.digital/ssn"
 )
 
 /*
@@ -15,49 +15,61 @@ import (
 *
  */
 
-// PreAuthRequest describes the JSON payload related to Pre Authorized payments
-type PreAuthRequest struct {
-	Message         string `json:"message"`
-	Signature       string `json:"signature"`
-	Public_key      string `json:"public_key"`
-	Service_user_id string `json:"service_user_id"`
+// CreatePaymentRequest describes the JSON structure for making a request to the create payment API
+type CreatePaymentRequest struct {
+	From         string `json:"from"`
+	To           string `json:"to"`
+	Amount       string `json:"amount"`
+	Asset_code   string `json:"asset_code"`
+	Asset_issuer string `json:"asset_issuer"`
+	Memo         string `json:"memo"`
 }
 
-// CreatePayment response
-type buildResponse struct {
-	Envelope_xdr string `json:"envelope_xdr"`
+// CreatePaymentResponse describes the JSON structure for the response from the create payment API
+type CreatePaymentResponse struct {
+	Status       int    `json:"status,omitempty"`
+	Envelope_xdr string `json:"envelope_xdr,omitempty"`
+	Title        string `json:"title,omitempty"`
 }
 
 // CreatePayment sends transaction information to the SSN API to build an XDR envelope
-func CreatePayment(from, to, amount, assetCode, assetIssuer, memo, api string) string {
-	tx := url.Values{}
-	tx.Set("from", from)
-	tx.Set("to", to)
-	tx.Set("amount", amount)
-	tx.Set("asset_code", assetCode)
-	tx.Set("asset_issuer", assetIssuer)
-	tx.Set("memo", memo)
-
-	req, err := http.NewRequest("POST", api+"/create/transaction", strings.NewReader(tx.Encode()))
-	if err != nil {
-		fmt.Println(error.Error(err))
+func CreatePayment(from, to, amount, assetCode, assetIssuer, memo, api string) (string, error) {
+	// Prepare JSON request
+	req := CreatePaymentRequest{
+		From:         from,
+		To:           to,
+		Amount:       amount,
+		Asset_code:   assetCode,
+		Asset_issuer: assetIssuer,
+		Memo:         memo,
 	}
-	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	reqBody, err := json.Marshal(req)
+	if ssn.Log(err, "CreatePayment: Marshal request body") {
+		return "", err
+	}
 
-	res, err := http.DefaultClient.Do(req)
-	if err != nil {
-		fmt.Println(error.Error(err))
+	// Send the request to the API and get the reponse
+	cpReq, err := http.NewRequest("POST", api+"/create/transaction", bytes.NewBuffer(reqBody))
+	if ssn.Log(err, "CreatePayment: Build HTTP request") {
+		return "", err
+	}
+	cpReq.Header.Add("Content-Type", "application/json")
+
+	res, err := http.DefaultClient.Do(cpReq)
+	if ssn.Log(err, "CreatePayment: Send HTTP request") {
+		return "", err
 	}
 
 	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		fmt.Println(error.Error(err))
+	if ssn.Log(err, "CreatePayment: Read response body") {
+		return "", err
 	}
 
-	apiResp := buildResponse{}
-	err = json.Unmarshal(body, &apiResp)
-	if err != nil {
-		fmt.Println(error.Error(err))
+	// Return the transaction envelope for signing
+	cpResp := CreatePaymentResponse{}
+	err = json.Unmarshal(body, &cpResp)
+	if ssn.Log(err, "CreatePayment: Unmarshal response body") {
+		return "", err
 	}
-	return apiResp.Envelope_xdr
+	return cpResp.Envelope_xdr, nil
 }

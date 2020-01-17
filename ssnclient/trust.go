@@ -14,11 +14,17 @@ import (
 *
  */
 
-// VerifyTrustRequest describes the JSON structure for making a request to verify trust API
+// VerifyTrustRequest describes the JSON structure for making a request to the verify trust API
 type VerifyTrustRequest struct {
 	Account      string `json:"account"`
 	Asset_code   string `json:"asset_code"`
 	Asset_issuer string `json:"asset_issuer"`
+}
+
+// VerifyTrustResponse describes the JSON structure for the response from the verify trust API
+type VerifyTrustResponse struct {
+	Status int    `json:"status"`
+	Title  string `json:"title"`
 }
 
 // VerifyTrust checks whether the provided asset and assetIssuer is trusted by destination
