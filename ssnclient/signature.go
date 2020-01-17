@@ -39,6 +39,8 @@ func VerifySignature(message, signature, publicKey, api string) (bool, error) {
 	if ssn.Log(err, "VerifySignature: build HTTP request") {
 		return false, err
 	}
+	vsReq.Header.Add("Content-Type", "application/json")
+	
 	vsResp, err := http.DefaultClient.Do(vsReq)
 	if ssn.Log(err, "VerifySignature: Send HTTP request") {
 		return false, err
