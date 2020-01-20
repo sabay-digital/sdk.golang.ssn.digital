@@ -20,6 +20,7 @@ func GetServiceName(serviceKey, api string) (string, error) {
 	if ssn.Log(err, "GetServiceName: Build HTTP request") {
 		return "", err
 	}
+
 	res, err := http.DefaultClient.Do(req)
 	if ssn.Log(err, "GetServiceName: Send HTTP request") {
 		return "", err

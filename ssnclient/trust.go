@@ -51,6 +51,7 @@ func VerifyTrust(destination, asset, assetIssuer, api string) (bool, error) {
 	if ssn.Log(err, "VerifyTrust: Send HTTP request") {
 		return false, err
 	}
+	defer vtResp.Body.Close()
 
 	// 200 signifies the cashier is trusted
 	if vtResp.StatusCode == 200 {

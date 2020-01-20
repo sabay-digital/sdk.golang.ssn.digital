@@ -51,6 +51,7 @@ func VerifySignature(message, signature, publicKey, api string) (bool, error) {
 	if ssn.Log(err, "VerifySignature: Send HTTP request") {
 		return false, err
 	}
+	defer vsResp.Body.Close()
 
 	// 200 signifies the signature is valid
 	if vsResp.StatusCode == 200 {
