@@ -59,6 +59,7 @@ func CreatePayment(from, to, amount, assetCode, assetIssuer, memo, api string) (
 	if ssn.Log(err, "CreatePayment: Send HTTP request") {
 		return "", err
 	}
+	defer res.Body.Close()
 
 	body, err := ioutil.ReadAll(res.Body)
 	if ssn.Log(err, "CreatePayment: Read response body") {

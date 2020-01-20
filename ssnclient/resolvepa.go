@@ -89,6 +89,7 @@ func ResolvePA(assetIssuer, publicKey, paymentAddress, resolverURL, decryptionKe
 	if ssn.Log(err, "ResolvePA: Send HTTP request") {
 		return ResolverResponse{Status: 500, Title: "Internal System Error"}, err
 	}
+	defer paResp.Body.Close()
 
 	// Unmarshall the PA response
 	body, err := ioutil.ReadAll(paResp.Body)
