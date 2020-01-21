@@ -35,31 +35,31 @@ type ResolverResponse struct {
 	Payment_type    string                   `json:"payment_type,omitempty"`
 	Service_name    string                   `json:"service_name,omitempty"`
 	Encrypted       string                   `json:"encrypted,omitempty"`
-	Details         *resolverResponseDetails `json:"details,omitempty"`
+	Details         *ResolverResponseDetails `json:"details,omitempty"`
 	Status          int                      `json:"status,omitempty"`
 	Title           string                   `json:"title,omitempty"`
 	Signature       string                   `json:"signature,omitempty"`
 }
 
-// resolverResponseDetails describes the JSON structure for the nested details part of the response from the payment address resolver API
-type resolverResponseDetails struct {
+// ResolverResponseDetails describes the JSON structure for the nested details part of the response from the payment address resolver API
+type ResolverResponseDetails struct {
 	Payment_info                string                     `json:"payment_info,omitempty"`
 	Memo                        string                     `json:"memo,omitempty"`
 	Recurring_payment_frequency string                     `json:"recurring_payment_frequency,omitempty"`
 	Recurring_payment_interval  string                     `json:"recurring_payment_interval,omitempty"`
 	Recurring_payment_start     string                     `json:"recurring_payment_start,omitempty"`
-	Payment                     *resolverPaymentDetails    `json:"payment,omitempty"`
-	Service_fee                 *resolverServiceFeeDetails `json:"service_fee,omitempty"`
+	Payment                     *ResolverPaymentDetails    `json:"payment,omitempty"`
+	Service_fee                 *ResolverServiceFeeDetails `json:"service_fee,omitempty"`
 }
 
-// resolverResponseDetails describes the JSON structure for the nested payment details part of the response from the payment address resolver API
-type resolverPaymentDetails struct {
+// ResolverPaymentDetails describes the JSON structure for the nested payment details part of the response from the payment address resolver API
+type ResolverPaymentDetails struct {
 	Amount     string `json:"amount,omitempty"`
 	Asset_code string `json:"asset_code,omitempty"`
 }
 
-// resolverResponseDetails describes the JSON structure for the nested service fee details part of the response from the payment address resolver API
-type resolverServiceFeeDetails struct {
+// ResolverServiceFeeDetails describes the JSON structure for the nested service fee details part of the response from the payment address resolver API
+type ResolverServiceFeeDetails struct {
 	Amount     string `json:"amount,omitempty"`
 	Asset_code string `json:"asset_code,omitempty"`
 }
