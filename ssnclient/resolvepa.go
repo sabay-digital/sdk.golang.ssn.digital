@@ -22,8 +22,8 @@ import (
 
 // ResolverRequest describes the JSON structure for making a request to the payment address resolver API
 type ResolverRequest struct {
-	Asset_issuer    string `json:"asset_issuer"`
-	Public_key      string `json:"public_key"`
+	Asset_issuer    string `json:"asset_issuer,omitempty"`
+	Public_key      string `json:"public_key,omitempty"`
 	Payment_address string `json:"payment_address"`
 }
 
