@@ -1,3 +1,6 @@
+Version 1.2.1
+- Omit empty on optional resolver request fields
+
 Version 1.2.0
 - Re-name and re-structure cashier package to become ssnclient
 - Add verifySignature function
