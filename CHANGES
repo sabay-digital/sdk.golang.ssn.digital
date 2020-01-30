@@ -1,3 +1,6 @@
+Version 1.2.2
+- Fix import path in resolver
+
 Version 1.2.1
 - Omit empty on optional resolver request fields
 
