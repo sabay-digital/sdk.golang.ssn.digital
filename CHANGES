@@ -1,0 +1,43 @@
+Version 1.2.1
+- Omit empty on optional resolver request fields
+
+Version 1.2.0
+- Re-name and re-structure cashier package to become ssnclient
+- Add verifySignature function
+- Refactor verifyTrust function
+- Add GetServiceName function
+- Correctly handle errors and closing of response body streams
+
+Version 1.1.9
+- Add asset holder service and registration names
+
+Version 1.1.8
+- Add Core info struct
+
+Version 1.1.7
+- Add service name to balance struct
+
+Version 1.1.6
+- Remove omitempty for bool and int types in account sub-structs
+
+Version 1.1.5
+- Add structs related to assets and issuers
+
+Version 1.1.4
+- Update Account structs with extra fields for balances and SSN data fields
+
+Version 1.1.3
+- Add a neat logging function for use across SSN apps
+
+Version 1.1.2
+- Update Account structs with missing fields
+
+Version 1.1.1
+- Add SSN Ledger struct
+
+Version 1.1.0
+- Start adding generalised SSN structs: Accounts, Operations, Transactions and Payments
+
+Version 1.0.0
+- Initial commit of reusable cashier functions
+- Pipeline for testing
