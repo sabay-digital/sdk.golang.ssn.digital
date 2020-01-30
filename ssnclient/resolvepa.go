@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"git.sabay.com/payment-network/sdk/sdk.golang.ssn.digital/ssn"
+	"github.com/sabay-digital/sdk.golang.ssn.digital/ssn"
 	"github.com/stellar/go/strkey"
 
 	"github.com/agl/ed25519/extra25519"
