@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"git.sabay.com/payment-network/sdk/sdk.golang.ssn.digital/ssn"
+	"github.com/sabay-digital/sdk.golang.ssn.digital/ssn"
 )
 
 /*
