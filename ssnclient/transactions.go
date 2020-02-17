@@ -7,7 +7,6 @@ import (
 	"net/http"
 
 	"github.com/sabay-digital/sdk.golang.ssn.digital/ssn"
-
 	"github.com/stellar/go/txnbuild"
 )
 
