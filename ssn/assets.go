@@ -24,23 +24,23 @@ type link struct {
 
 // Issuer describes the JSON structure related to an individual issuer
 type Issuer struct {
-	Asset_issuer string    `json:"asset_issuer,omitempty"`
-	Asset_code   string    `json:"asset_code,omitempty"`
-	Asset_type   string    `json:"asset_type,omitempty"`
-	Flags        flags     `json:"flags,omitempty"`
-	Amount       string    `json:"amount,omitempty"`
-	Num_accounts int       `json:"num_accounts,omitempty"`
-	Holders      []Holders `json:"holders,omitempty"`
-	Title        string    `json:"title,omitempty"`
-	Status       int       `json:"status,omitempty"`
-	Detail       string    `json:"detail,omitempty"`
+	Asset_issuer string       `json:"asset_issuer,omitempty"`
+	Asset_code   string       `json:"asset_code,omitempty"`
+	Asset_type   string       `json:"asset_type,omitempty"`
+	Flags        flags        `json:"flags,omitempty"`
+	Amount       string       `json:"amount,omitempty"`
+	Num_accounts int          `json:"num_accounts,omitempty"`
+	Trustlines   []Trustlines `json:"trustlines,omitempty"`
+	Title        string       `json:"title,omitempty"`
+	Status       int          `json:"status,omitempty"`
+	Detail       string       `json:"detail,omitempty"`
 }
 
-// Holders describes the JSON structure related to an individual asset holder
-type Holders struct {
-	Account_id                string   `json:"account_id,omitempty"`
-	Balance                   balances `json:"balance,omitempty"`
-	Asset_holder_service_name string   `json:"asset_holder_service_name,omitempty"`
-	Asset_holder_reg_name     string   `json:"asset_holder_reg_name,omitempty"`
-	Asset_holder_home_domain  string   `json:"asset_holder_home_domain,omitempty"`
+// Trustlines describes the JSON structure related to an individual trustline
+type Trustlines struct {
+	Account_id        string   `json:"account_id,omitempty"`
+	Balance           balances `json:"balance,omitempty"`
+	Service_name      string   `json:"service_name,omitempty"`
+	Registration_name string   `json:"registration_name,omitempty"`
+	Home_domain       string   `json:"home_domain,omitempty"`
 }
