@@ -97,7 +97,7 @@ func VerifySigner(signer, ssnAccount, api string) (bool, error) {
 	}
 	defer vsResp.Body.Close()
 
-	// 200 signifies the signature is valid
+	// 200 signifies the signer is present on the SSN account
 	if vsResp.StatusCode == 200 {
 		return true, nil
 	}
