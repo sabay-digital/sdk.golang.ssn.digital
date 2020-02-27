@@ -1,11 +1,12 @@
+Version 1.4.0
+- Add verify Signer function
+- Update accounts and issuers JSON object specs
+
 Version 1.3.1
 - Fix resolver response arrays
 
 Version 1.3.0
 - *BREAKING* Switch the resolvePA function to resolve via V2
-
-Version 1.2.2
-- Fix import path in resolver
 
 Version 1.2.1
 - Omit empty on optional resolver request fields
