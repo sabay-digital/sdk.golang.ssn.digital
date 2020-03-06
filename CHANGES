@@ -1,3 +1,6 @@
+Version 1.5.0
+- Add function to find if an account is part of a preauthorization hierarchy
+
 Version 1.4.0
 - Add verify Signer function
 - Update accounts and issuers JSON object specs
