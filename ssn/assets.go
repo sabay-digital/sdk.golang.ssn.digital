@@ -24,16 +24,21 @@ type link struct {
 
 // Issuer describes the JSON structure related to an individual issuer
 type Issuer struct {
-	Asset_issuer string       `json:"asset_issuer,omitempty"`
+	Asset_issuer  string   `json:"asset_issuer,omitempty"`
+	Assets_issued []Assets `json:"assets_issued,omitempty"`
+	Title         string   `json:"title,omitempty"`
+	Status        int      `json:"status,omitempty"`
+	Detail        string   `json:"detail,omitempty"`
+}
+
+// Assets describeds the JSON structure related to an individual asset
+type Assets struct {
 	Asset_code   string       `json:"asset_code,omitempty"`
 	Asset_type   string       `json:"asset_type,omitempty"`
 	Flags        flags        `json:"flags,omitempty"`
 	Amount       string       `json:"amount,omitempty"`
 	Num_accounts int          `json:"num_accounts,omitempty"`
 	Trustlines   []Trustlines `json:"trustlines,omitempty"`
-	Title        string       `json:"title,omitempty"`
-	Status       int          `json:"status,omitempty"`
-	Detail       string       `json:"detail,omitempty"`
 }
 
 // Trustlines describes the JSON structure related to an individual trustline
