@@ -10,11 +10,11 @@ type Account struct {
 	Subentry_count       int                        `json:"subentry_count"`
 	Home_domain          string                     `json:"home_domain,omitempty"`
 	Last_modified_ledger int                        `json:"last_modified_ledger"`
-	Thresholds           *thresholds                `json:"thresholds,omitempty"`
-	Flags                *flags                     `json:"flags,omitempty"`
-	Balances             []balances                 `json:"balances,omitempty"`
-	Signers              []signers                  `json:"signers,omitempty"`
-	Data                 *data                      `json:"data,omitempty"`
+	Thresholds           *Thresholds                `json:"thresholds,omitempty"`
+	Flags                *Flags                     `json:"flags,omitempty"`
+	Balances             []Balances                 `json:"balances,omitempty"`
+	Signers              []Signers                  `json:"signers,omitempty"`
+	Data                 *Data                      `json:"data,omitempty"`
 	Type                 string                     `json:"type,omitempty"`
 	Title                string                     `json:"title,omitempty"`
 	Status               int                        `json:"status,omitempty"`
@@ -22,22 +22,22 @@ type Account struct {
 	Extras               map[string]json.RawMessage `json:"extras,omitempty"`
 }
 
-// thresholds describes the JSON structure of an accounts threshold values
-type thresholds struct {
+// Thresholds describes the JSON structure of an accounts threshold values
+type Thresholds struct {
 	Low_threshold  int `json:"low_threshold"`
 	Med_threshold  int `json:"med_threshold"`
 	High_threshold int `json:"high_threshold"`
 }
 
-// flags describes the JSON structure of an accounts flag values
-type flags struct {
+// Flags describes the JSON structure of an accounts flag values
+type Flags struct {
 	Auth_required  bool `json:"auth_required"`
 	Auth_revocable bool `json:"auth_revocable"`
 	Auth_immutable bool `json:"auth_immutable"`
 }
 
-// balances describes the JSON structure of an individual balance on an account
-type balances struct {
+// Balances describes the JSON structure of an individual balance on an account
+type Balances struct {
 	Balance                        string `json:"balance,omitempty"`
 	Buying_liabilities             string `json:"buying_liabilities,omitempty"`
 	Selling_liabilities            string `json:"selling_liabilities,omitempty"`
@@ -53,14 +53,15 @@ type balances struct {
 	Asset_issuer_net_payout        string `json:"asset_issuer_net_payout,omitempty"`
 }
 
-// signers describes the JSON structure of an individual signer on an account
-type signers struct {
+// Signers describes the JSON structure of an individual signer on an account
+type Signers struct {
 	Weight int    `json:"weight"`
 	Key    string `json:"key,omitempty"`
 	Type   string `json:"type,omitempty"`
 }
 
-type data struct {
+// Data describes the JSON structure of all possible KYC fields on an account
+type Data struct {
 	// Shared
 	Registration_name            string `json:"registration_name,omitempty"`
 	Registration_country         string `json:"registration_country,omitempty"`
