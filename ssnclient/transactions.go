@@ -24,17 +24,17 @@ func SignTxn(xdr, signer, networkPassphrase string) (string, error) {
 		return "", err
 	}
 
-	// Explicitly set the network where this transaction is to be valid
-	tx.Network = networkPassphrase
+	// Load the envelope
+	txe, _ := tx.Transaction()
 
 	// Add a signature
-	err = tx.SignWithKeyString(signer)
+	txe, err = txe.SignWithKeyString(networkPassphrase, signer)
 	if ssn.Log(err, "SignTxn: Sign transaction with key string") {
 		return "", err
 	}
 
 	// Serialise the transaction
-	b64, err := tx.Base64()
+	b64, err := txe.Base64()
 	if ssn.Log(err, "SignTxn: Encode transaction to base 64") {
 		return "", err
 	}
