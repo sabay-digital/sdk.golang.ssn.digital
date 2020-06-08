@@ -25,10 +25,7 @@ func SignTxn(xdr, signer, networkPassphrase string) (string, error) {
 	}
 
 	// Load the envelope
-	txe, err := tx.Transaction()
-	if ssn.Log(err, "SignTxn: Load envelope") {
-		return "", err
-	}
+	txe, _ := tx.Transaction()
 
 	// Add a signature
 	txe, err = txe.SignWithKeyString(networkPassphrase, signer)
