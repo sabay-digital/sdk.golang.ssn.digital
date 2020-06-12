@@ -58,8 +58,11 @@ type ResolverResponseDetails struct {
 
 // ResolverPaymentDetails describes the JSON structure for the nested payment details part of the response from the payment address resolver API
 type ResolverPaymentDetails struct {
-	Amount     string `json:"amount,omitempty"`
-	Asset_code string `json:"asset_code,omitempty"`
+	Amount          string `json:"amount,omitempty"`
+	Asset_code      string `json:"asset_code,omitempty"`
+	Package         string `json:"package,omitempty"`
+	Payment_address string `json:"payment_address,omitempty"`
+	Is_recurring    bool   `json:"is_recurring,omitempty"`
 }
 
 // ResolverServiceFeeDetails describes the JSON structure for the nested service fee details part of the response from the payment address resolver API
