@@ -19,12 +19,57 @@ type PayloadItem struct {
 }
 
 type slackMesg struct {
-	Text string `json:"text"`
+	Blocks []section `json:"blocks"`
+}
+
+type section struct {
+	Type   string  `json:"type"`
+	Text   field   `json:"text"`
+	Fields []field `json:"fields"`
+}
+
+type field struct {
+	Type string `json:"type"`
+	Text string `json:"test"`
 }
 
 // SendSlackMesg sends a message to a Slack webhook
-func SendSlackMesg(mesg, url string) {
-	slackBody, _ := json.Marshal(slackMesg{Text: mesg})
+func SendSlackMesg(mesg, ll, app, env, url string) {
+	header := []field{
+		{Type: "mrkdwn", Text: "*App Name*"},
+		{Type: "mrkdwn", Text: "*Environment*"},
+		{Type: "mrkdwn", Text: app},
+		{Type: "mrkdwn", Text: env},
+		{Type: "mrkdwn", Text: "*Log Level*"},
+		{Type: "mrkdwn", Text: ll},
+	}
+
+	section := []section{
+		{
+			Type:   "section",
+			Fields: header,
+		},
+		{
+			Type: "section",
+			Text: field{
+				Type: "mrkdwn",
+				Text: "*Message*",
+			},
+		},
+		{
+			Type: "section",
+			Text: field{
+				Type: "mrkdwn",
+				Text: mesg,
+			},
+		},
+	}
+
+	block := slackMesg{
+		Blocks: section,
+	}
+
+	slackBody, _ := json.Marshal(block)
 	req, _ := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(slackBody))
 	req.Header.Add("Content-Type", "application/json")
 	http.DefaultClient.Do(req)
