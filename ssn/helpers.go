@@ -23,44 +23,44 @@ type slackMesg struct {
 }
 
 type section struct {
-	Type   string  `json:"type"`
-	Text   field   `json:"text,omitempty"`
-	Fields []field `json:"fields,omitempty"`
+	Type string `json:"type"`
+	Text field  `json:"text"`
 }
 
 type field struct {
 	Type string `json:"type"`
-	Text string `json:"test"`
+	Text string `json:"text"`
 }
 
 // SendSlackMesg sends a message to a Slack webhook
 func SendSlackMesg(mesg, ll, app, env, url string) {
-	header := []field{
-		{Type: "mrkdwn", Text: "*App Name*"},
-		{Type: "mrkdwn", Text: "*Environment*"},
-		{Type: "mrkdwn", Text: app},
-		{Type: "mrkdwn", Text: env},
-		{Type: "mrkdwn", Text: "*Log Level*"},
-		{Type: "mrkdwn", Text: ll},
-	}
-
 	section := []section{
-		{
-			Type:   "section",
-			Fields: header,
-		},
 		{
 			Type: "section",
 			Text: field{
 				Type: "mrkdwn",
-				Text: "*Message*",
+				Text: "*App Name:* " + app,
 			},
 		},
 		{
 			Type: "section",
 			Text: field{
 				Type: "mrkdwn",
-				Text: mesg,
+				Text: "*Environment:* " + env,
+			},
+		},
+		{
+			Type: "section",
+			Text: field{
+				Type: "mrkdwn",
+				Text: "*Log Level:* " + ll,
+			},
+		},
+		{
+			Type: "section",
+			Text: field{
+				Type: "mrkdwn",
+				Text: "*Message:* " + mesg,
 			},
 		},
 	}
