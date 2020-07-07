@@ -24,8 +24,8 @@ type slackMesg struct {
 
 type section struct {
 	Type   string  `json:"type"`
-	Text   field   `json:"text"`
-	Fields []field `json:"fields"`
+	Text   field   `json:"text,omitempty"`
+	Fields []field `json:"fields,omitempty"`
 }
 
 type field struct {
