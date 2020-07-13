@@ -8,6 +8,7 @@ type Offer struct {
 	Selling              OfferAsset `json:"selling,omitempty"`
 	Buying               OfferAsset `json:"buying,omitempty"`
 	Amount               string     `json:"amount,omitempty"`
+	Price                string     `json:"price,omitempty"`
 	Price_r              OfferPrice `json:"price_r,omitempty"`
 	Last_modified_ledger int        `json:"last_modified_ledger,omitempty"`
 	Last_modified_time   string     `json:"last_modified_time,omitempty"`
