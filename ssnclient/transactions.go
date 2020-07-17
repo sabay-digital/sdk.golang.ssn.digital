@@ -3,8 +3,10 @@ package ssnclient
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 
 	"github.com/sabay-digital/sdk.golang.ssn.digital/ssn"
 	"github.com/stellar/go/txnbuild"
@@ -138,6 +140,11 @@ func SubmitTxn(xdr, api string) (string, error) {
 	err = json.Unmarshal(body, &apiResp)
 	if ssn.Log(err, "SubmitTxn: Unmarshal response body") {
 		return "", err
+	}
+
+	if apiResp.Status != 200 {
+		mesg := strconv.Itoa(apiResp.Status) + ": " + apiResp.Title
+		return "", errors.New(mesg)
 	}
 	return apiResp.Hash, nil
 }
