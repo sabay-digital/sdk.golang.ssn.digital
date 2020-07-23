@@ -4,10 +4,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strconv"
+	"time"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/sabay-digital/sdk.golang.ssn.digital/ssn"
 	"github.com/stellar/go/txnbuild"
 )
@@ -45,14 +48,29 @@ func SignTxn(xdr, signer, networkPassphrase string) (string, error) {
 }
 
 type signRequest struct {
-	Xdr_string string `json:"xdr_string"`
+	Envelope_xdr string `json:"envelope_xdr"`
+	Access_token string `json:"access_token"`
 }
 
 // SignTxnService takes a base64 encoded XDR envelope and sends it to the specified sign service API
-func SignTxnService(xdr, signer string) (string, error) {
+func SignTxnService(xdr, signer, JWTkey string) (string, error) {
+	// Generate JWT
+	claims := &jwt.StandardClaims{
+		ExpiresAt: time.Now().Add(time.Second * 60).Unix(),
+		Issuer:    "SSN",
+		Subject:   "Sign txn request",
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	signedToken, err := token.SignedString([]byte(JWTkey))
+	if ssn.Log(err, "SignTxnService: Generate JWT") {
+		return "", err
+	}
+
 	// Prepare the request body
 	sig := signRequest{
-		Xdr_string: xdr,
+		Envelope_xdr: xdr,
+		Access_token: signedToken,
 	}
 
 	reqBody, err := json.Marshal(sig)
@@ -86,7 +104,7 @@ func SignTxnService(xdr, signer string) (string, error) {
 		return "", err
 	}
 
-	return sig.Xdr_string, nil
+	return sig.Envelope_xdr, nil
 }
 
 // SubmitTransactionRequest describes the JSON structure for making a request to the submit transaction API
@@ -143,7 +161,7 @@ func SubmitTxn(xdr, api string) (string, error) {
 	}
 
 	if apiResp.Status != 200 {
-		mesg := strconv.Itoa(apiResp.Status) + ": " + apiResp.Title
+		mesg := strconv.Itoa(apiResp.Status) + ": " + apiResp.Title + ": " + fmt.Sprintf("%v", apiResp.Extras["result_codes"])
 		return "", errors.New(mesg)
 	}
 	return apiResp.Hash, nil
