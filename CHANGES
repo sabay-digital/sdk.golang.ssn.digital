@@ -1,3 +1,6 @@
+Version 1.10.0
+- Add JWT token generation to SignTxnService
+
 Version 1.9.2
 - Catch bad txn submissions
 
