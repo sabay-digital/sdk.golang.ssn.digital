@@ -2,6 +2,7 @@ package ssnclient
 
 import (
 	"bytes"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -62,7 +63,11 @@ func SignTxnService(xdr, signer, JWTkey string) (string, error) {
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	signedToken, err := token.SignedString([]byte(JWTkey))
+	decodedKey, err := base64.StdEncoding.DecodeString(JWTkey)
+	if ssn.Log(err, "SignTxnService: Decode JWT Key") {
+		return "", err
+	}
+	signedToken, err := token.SignedString(decodedKey)
 	if ssn.Log(err, "SignTxnService: Generate JWT") {
 		return "", err
 	}

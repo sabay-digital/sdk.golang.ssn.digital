@@ -1,3 +1,6 @@
+Version 1.10.1
+- Ensure correct decoding of JWT key in SignTxnService
+
 Version 1.10.0
 - Add JWT token generation to SignTxnService
 
