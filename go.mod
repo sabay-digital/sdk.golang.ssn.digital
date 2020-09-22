@@ -4,9 +4,8 @@ go 1.14
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
-	github.com/lib/pq v1.7.0 // indirect
+	github.com/lib/pq v1.8.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/stellar/go v0.0.0-20200706134233-5ce551aba883
-	github.com/stellar/go-xdr v0.0.0-20200331223602-71a1e6d555f2 // indirect
-	golang.org/x/net v0.0.0-20200707034311-ab3426394381 // indirect
+	github.com/stellar/go v0.0.0-20200921195112-f173cf7bf488
+	golang.org/x/net v0.0.0-20200904194848-62affa334b73 // indirect
 )
