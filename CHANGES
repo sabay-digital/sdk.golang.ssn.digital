@@ -1,3 +1,6 @@
+Version 1.10.2
+- Bump dependencies
+
 Version 1.10.1
 - Ensure correct decoding of JWT key in SignTxnService
 
