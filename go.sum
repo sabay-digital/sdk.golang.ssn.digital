@@ -140,8 +140,8 @@ github.com/rcrowley/go-metrics v0.0.0-20181016184325-3113b8401b8a/go.mod h1:bCqn
 github.com/rs/cors v0.0.0-20160617231935-a62a804a8a00/go.mod h1:gFx+x8UowdsKA9AchylcLynDq+nNFfI8FkUZdN/jGCU=
 github.com/rs/xhandler v0.0.0-20160618193221-ed27b6fd6521/go.mod h1:RvLn4FgxWubrpZHtQLnOf6EwhN2hEMusxZOhcW9H3UQ=
 github.com/rubenv/sql-migrate v0.0.0-20190717103323-87ce952f7079/go.mod h1:WS0rl9eEliYI8DPnr3TOwz4439pay+qNgzJoVya/DmY=
-github.com/sabay-digital/sdk.golang.ssn.digital v1.10.2 h1:fUOWB0BgX1oPXBeh2ICbFZp4MTUBvk3KDYRl9uN4mZA=
-github.com/sabay-digital/sdk.golang.ssn.digital v1.10.2/go.mod h1:XzJ2Xuf1aCZF7fDyx/Yi+/93jDwChfJ+UxeR/CU5tRE=
+github.com/sabay-digital/sdk.golang.ssn.digital v1.10.3 h1:ZS0BsSsAscG/S3W/PUhQk5RNXQvWXiJFWnjd8hQG8xs=
+github.com/sabay-digital/sdk.golang.ssn.digital v1.10.3/go.mod h1:XzJ2Xuf1aCZF7fDyx/Yi+/93jDwChfJ+UxeR/CU5tRE=
 github.com/sebest/xff v0.0.0-20150611211316-7a36e3a787b5/go.mod h1:wozgYq9WEBQBaIJe4YZ0qTSFAMxmcwBhQH0fO0R34Z0=
 github.com/segmentio/go-loggly v0.5.1-0.20171222203950-eb91657e62b2 h1:S4OC0+OBKz6mJnzuHioeEat74PuQ4Sgvbf8eus695sc=
 github.com/segmentio/go-loggly v0.5.1-0.20171222203950-eb91657e62b2/go.mod h1:8zLRYR5npGjaOXgPSKat5+oOh+UHd8OdbS18iqX9F6Y=
