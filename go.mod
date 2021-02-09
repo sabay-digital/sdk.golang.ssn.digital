@@ -1,11 +1,11 @@
 module github.com/sabay-digital/sdk.golang.ssn.digital
 
-go 1.14
+go 1.15
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
-	github.com/lib/pq v1.8.0 // indirect
+	github.com/lib/pq v1.9.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/stellar/go v0.0.0-20200921195112-f173cf7bf488
-	golang.org/x/net v0.0.0-20200904194848-62affa334b73 // indirect
+	github.com/stellar/go v0.0.0-20210208222255-f071f3b0df9a
+	golang.org/x/net v0.0.0-20210119194325-5f4716e94777 // indirect
 )
