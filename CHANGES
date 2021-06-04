@@ -1,3 +1,8 @@
+Version 1.10.5
+- Update various structs to match upstream API
+- bump deps
+- Setup clone to Github repo
+
 Version 1.10.4
 - Bump to Go v1.15
 
