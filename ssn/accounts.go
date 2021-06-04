@@ -10,11 +10,15 @@ type Account struct {
 	Subentry_count       int                        `json:"subentry_count"`
 	Home_domain          string                     `json:"home_domain,omitempty"`
 	Last_modified_ledger int                        `json:"last_modified_ledger"`
+	Last_modified_time   string                     `json:"last_modified_time"`
 	Thresholds           *Thresholds                `json:"thresholds,omitempty"`
 	Flags                *Flags                     `json:"flags,omitempty"`
 	Balances             []Balances                 `json:"balances,omitempty"`
 	Signers              []Signers                  `json:"signers,omitempty"`
 	Data                 *Data                      `json:"data,omitempty"`
+	Num_sponsoring       int                        `json:"num_sponsoring"`
+	Num_sponsored        int                        `json:"num_sponsored"`
+	Paging_token         string                     `json:"paging_token"`
 	Type                 string                     `json:"type,omitempty"`
 	Title                string                     `json:"title,omitempty"`
 	Status               int                        `json:"status,omitempty"`
@@ -31,26 +35,28 @@ type Thresholds struct {
 
 // Flags describes the JSON structure of an accounts flag values
 type Flags struct {
-	Auth_required  bool `json:"auth_required"`
-	Auth_revocable bool `json:"auth_revocable"`
-	Auth_immutable bool `json:"auth_immutable"`
+	Auth_required         bool `json:"auth_required"`
+	Auth_revocable        bool `json:"auth_revocable"`
+	Auth_immutable        bool `json:"auth_immutable"`
+	Auth_clawback_enabled bool `json:"auth_clawback_enabled"`
 }
 
 // Balances describes the JSON structure of an individual balance on an account
 type Balances struct {
-	Balance                        string `json:"balance,omitempty"`
-	Buying_liabilities             string `json:"buying_liabilities,omitempty"`
-	Selling_liabilities            string `json:"selling_liabilities,omitempty"`
-	Limit                          string `json:"limit,omitempty"`
-	Last_modified_ledger           int    `json:"last_modified_ledger"`
-	Is_authorized                  bool   `json:"is_authorized"`
-	Asset_type                     string `json:"asset_type,omitempty"`
-	Asset_code                     string `json:"asset_code,omitempty"`
-	Asset_issuer                   string `json:"asset_issuer,omitempty"`
-	Asset_issuer_service_name      string `json:"asset_issuer_service_name,omitempty"`
-	Asset_issuer_registration_name string `json:"asset_issuer_registration_name,omitempty"`
-	Asset_issuer_home_domain       string `json:"asset_issuer_home_domain,omitempty"`
-	Asset_issuer_net_payout        string `json:"asset_issuer_net_payout,omitempty"`
+	Balance                               string `json:"balance,omitempty"`
+	Buying_liabilities                    string `json:"buying_liabilities,omitempty"`
+	Selling_liabilities                   string `json:"selling_liabilities,omitempty"`
+	Limit                                 string `json:"limit,omitempty"`
+	Last_modified_ledger                  int    `json:"last_modified_ledger"`
+	Is_authorized                         bool   `json:"is_authorized"`
+	Is_authorized_to_maintain_liabilities bool   `json:"is_authorized_to_maintain_liabilities"`
+	Asset_type                            string `json:"asset_type,omitempty"`
+	Asset_code                            string `json:"asset_code,omitempty"`
+	Asset_issuer                          string `json:"asset_issuer,omitempty"`
+	Asset_issuer_service_name             string `json:"asset_issuer_service_name,omitempty"`
+	Asset_issuer_registration_name        string `json:"asset_issuer_registration_name,omitempty"`
+	Asset_issuer_home_domain              string `json:"asset_issuer_home_domain,omitempty"`
+	Asset_issuer_net_payout               string `json:"asset_issuer_net_payout,omitempty"`
 }
 
 // Signers describes the JSON structure of an individual signer on an account

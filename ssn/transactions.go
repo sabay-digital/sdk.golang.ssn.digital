@@ -12,8 +12,9 @@ type Transaction struct {
 	Created_at              string                     `json:"created_at,omitempty"`
 	Source_account          string                     `json:"source_account,omitempty"`
 	Source_account_sequence string                     `json:"source_account_sequence,omitempty"`
-	Max_fee                 int                        `json:"max_fee,omitempty"`
-	Fee_charged             int                        `json:"fee_charged,omitempty"`
+	Fee_account             string                     `json:"fee_account"`
+	Fee_charged             string                     `json:"fee_charged,omitempty"`
+	Max_fee                 string                     `json:"max_fee,omitempty"`
 	Operation_count         int                        `json:"operation_count,omitempty"`
 	Envelope_xdr            string                     `json:"envelope_xdr,omitempty"`
 	Result_xdr              string                     `json:"result_xdr,omitempty"`
@@ -21,7 +22,10 @@ type Transaction struct {
 	Fee_meta_xdr            string                     `json:"fee_meta_xdr,omitempty"`
 	Memo_type               string                     `json:"memo_type,omitempty"`
 	Memo                    string                     `json:"memo,omitempty"`
+	Memo_bytes              string                     `json:"memo_bytes"`
 	Signatures              []string                   `json:"signatures,omitempty"`
+	Valid_after             string                     `json:"valid_after"`
+	Valid_before            string                     `json:"valid_before"`
 	Type                    string                     `json:"type,omitempty"`
 	Title                   string                     `json:"title,omitempty"`
 	Status                  int                        `json:"status,omitempty"`
