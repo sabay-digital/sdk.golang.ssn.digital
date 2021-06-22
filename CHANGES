@@ -1,3 +1,6 @@
+Version 1.10.6
+- Bump deps to clear mod cache
+
 Version 1.10.5
 - Update various structs to match upstream API
 - bump deps
