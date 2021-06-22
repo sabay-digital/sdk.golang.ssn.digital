@@ -5,6 +5,6 @@ go 1.15
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/stellar/go v0.0.0-20210605000921-151c61ebf14d
-	golang.org/x/net v0.0.0-20210525063256-abc453219eb5 // indirect
+	github.com/stellar/go v0.0.0-20210617134308-46c8074a5e7c
+	golang.org/x/net v0.0.0-20210614182718-04defd469f4e // indirect
 )
